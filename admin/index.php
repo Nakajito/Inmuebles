@@ -27,6 +27,8 @@
         <!-- muestra mensaje por medio de la url y get -->
         <?php if (intval($resultado)===1): ?>
             <p class="alerta exito">Anuncio creado correctamente</p>
+        <?php elseif (intval($resultado)===2): ?>
+                <p class="alerta exito">Anuncio actualizado correctamente</p>
         <?php endif; ?>
         
 

@@ -40,9 +40,9 @@ require '../../includes/config/databases.php';
     //despues de enviar el formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // echo "<pre>";
-        // var_dump($_POST);
-        // echo "</pre>";
+        echo "<pre>";
+        var_dump($_POST);
+        echo "</pre>";
 
         // echo "<pre>";
         // var_dump($_FILES);
@@ -90,9 +90,6 @@ require '../../includes/config/databases.php';
             $errores[] = "El nombre del vendedor es obligatorio";
         }
 
-        if (!$imagen['name'] || $imagen['error']) {
-            $errores[] = "La imagen es obligatoria";
-        }
 
         //validar tamaño
         $medida = 1000 * 1000;
@@ -112,22 +109,22 @@ require '../../includes/config/databases.php';
             
             // Subida de archivos
 
-            //crear carpeta
-            $carpetaImagenes = '../../imagenes/';
-            if (!is_dir($carpetaImagenes)) {
-                mkdir($carpetaImagenes);
-            }
+            // //crear carpeta
+            // $carpetaImagenes = '../../imagenes/';
+            // if (!is_dir($carpetaImagenes)) {
+            //     mkdir($carpetaImagenes);
+            // }
 
-            //generar nombre unico
-            $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
+            // //generar nombre unico
+            // $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
 
 
-            //subir imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen );
+            // //subir imagen
+            // move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen );
 
 
             //insertar en la base de datos
-            $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion',  '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId') ";
+            $query = " UPDATE propiedades SET titulo = '${titulo}',precio = ${precio},descripcion = '${descripcion}',habitaciones = ${habitaciones},estacionamiento = ${estacionamiento},vendedorId = ${vendedorId} WHERE id = ${id} ";
 
             // echo "$query";
 
@@ -135,7 +132,7 @@ require '../../includes/config/databases.php';
 
             if ($resultado) {
                 // echo "Insertado correctamente";
-                header('Location:/admin?resultado=1');
+                header('Location:/admin?resultado=2');
             }
         }
 
@@ -166,7 +163,7 @@ require '../../includes/config/databases.php';
         
         <?php endforeach; ?>
 
-        <form class="formulario" action="/admin/propiedades/crear.php" method="post" enctype="multipart/form-data">
+        <form class="formulario" method="post" enctype="multipart/form-data">
         
             <fieldset>
                 <legend>Información General</legend>
