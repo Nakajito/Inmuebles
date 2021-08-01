@@ -1,5 +1,12 @@
 <?php 
 
+    require '../../includes/funciones.php';
+    $auth = estaAutenticado();
+    
+    if (!$auth) {
+        header('Location: /');
+    }
+
     // obtener el id de la propiedad a modificar
     $id = $_GET['id'];
     // validar que el id sea numerico
@@ -150,7 +157,7 @@ require '../../includes/config/databases.php';
     
 
 
-    require '../../includes/funciones.php';
+
     incluirTemplate('header');
 ?>
 
